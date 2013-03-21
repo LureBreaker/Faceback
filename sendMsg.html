@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<head lang="en">
+	<meta charset="utf-8">
+	<title>FaceBack Send to your friend!</title>
+	<style>
+		body {
+			margin-top:100px;
+			margin-left:400px;
+		}
+	</style>
+	<script>
+		function thankyou()
+			{
+			document.getElementById("p1").style.visibility="hidden";
+			document.getElementById("p2").style.visibility="visible";
+			}
+	</script>
+</head>
+<body>
+<img src="images/faceback.png" style="margin-left:-150px;margin-top:-80px;"/>
+<div>
+	<div id="p2" style="visibility:hidden;position:relative;">
+		<p>Thank you for feedback!</p>
+        <a href="./index.html">back</a>
+	</div>
+	<div id="p1" style="position:relative;">
+	<p>Your email has stored into the database and send to your friend!!</p>
+	<p>Thanks for sharing!</p>
+	<br />
+	<p>Please give us feedbacks for improvement!</p>
+
+		Feedback: </br>
+		<textarea rows="4" cols="50" name="happening">
+		</textarea>
+		<br />
+		<input type ="button" name="submit" value="submit" onclick="thankyou()"/>
+
+	</div>
+</div>
+</body>
+
+</html>
