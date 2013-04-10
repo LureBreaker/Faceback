@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<head lang="en">
+<meta charset="utf-8">
+<title>Face Back</title>
+<link rel="stylesheet" href="style/style.css" type="text/css" />
+<link rel="stylesheet" href="style/default.css">
+<link rel="stylesheet" href="style/red.css">
+<script>
+	function thankyou() {
+		document.getElementById("p1").style.visibility = "hidden";
+		document.getElementById("p2").style.visibility = "visible";
+	}
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-39497749-1']);
+  _gaq.push(['_setDomainName', 'afaceback.appspot.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="header">
+			<div id="logo">
+				<h1>
+					<a href="/">Face Back</a>
+				</h1>
+			</div>
+			<div style="float: right;">
+				<img src="./images/faceback.png"
+					style="margin-top: 20px; height: 70px;" />
+			</div>
+		</div>
+		<div id="page">
+			<div id="content">
+				<div id="p2" style="visibility: hidden; position: relative;">
+					<p>Thank you for feedback!</p>
+					<a href="./index.html">back</a>
+				</div>
+				<div id="p1">
+					<p>Your email has stored into the database and send to your
+						friend!!</p>
+					<p>Thanks for sharing!</p>
+					<hr />
+					<p></p>
+					<div align="center">
+						<form action="feedback" method="POST">
+
+							<label for="feedback" style="width: 400px;">Please give
+								us feedbacks:</label>
+							<textarea rows="4" cols="50" name="feedback"></textarea>
+							<br /> <input type="submit" name="submit" value="submit"
+								onclick="thankyou()" />
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="footer">
+			<p>Copyright (c) 2013 FaceBack All rights reserved.</p>
+		</div>
+	</div>
+
+</body>
+
+</html>

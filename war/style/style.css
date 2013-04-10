@@ -1,0 +1,73 @@
+a {
+    text-decoration: none;
+    color: black;
+}
+
+    a :hover {
+        color: red;
+    }
+
+.buttons {
+    background: #F1F1F1;
+    padding: 11px;
+    border: 1px solid #D2D2D2;
+    width: 843px;
+    margin-bottom: 20px;
+}
+
+#container {
+    text-align: left;
+    background: #FFF;
+    width: 865px;
+    margin: 50px auto 0;
+    padding: 20px;
+    border-left: 1px solid #CCC;
+    border-right: 1px solid #CCC;
+    -moz-box-shadow: 0px 0px 10px #BBB;
+    -webkit-box-shadow: 0px 0px 10px #BBB;
+    box-shadow: 0px 0px 10px #BBB;
+}
+/*Footer css style is used in demo only*/
+footer {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 5px 5px 5px 5px;
+    bottom: 0;
+    box-shadow: 0 3px 1px rgba(0, 0, 0, 0.02) inset, 0 1px 0 white;
+    display: block;
+    height: 40px;
+    left: 0;
+    padding: 1.5em;
+    position: fixed;
+    width: 100%;
+    z-index: 100000;
+}
+
+    footer h2 {
+        color: rgba(0, 0, 0, 0.8);
+        font-family: 'PT Sans Narrow',Arial,sans-serif;
+        font-size: 20px;
+        font-weight: normal;
+        left: 50%;
+        margin-left: -400px;
+        position: absolute;
+        text-shadow: 0 1px 0 white;
+        width: 500px;
+    }
+
+    footer a.youhacked, a.youhacked:visited {
+        font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+        background: url("http://youhack.me/demo/Apple%20itunes%20banner%20rotator/youhack.png") no-repeat scroll right top transparent;
+        border: medium none;
+        color: #000000;
+        font-size: 12px;
+        height: 70px;
+        left: 50%;
+        letter-spacing: 1px;
+        line-height: 31px;
+        margin: 20px 0 0 110px;
+        position: absolute;
+        text-decoration: none;
+        top: 0;
+        width: 310px;
+    }

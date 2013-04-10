@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head lang="en">
+<meta charset="utf-8">
+<title>Face Back</title>
+
+<link rel="stylesheet" href="style/default.css">
+<link rel="stylesheet" href="style/red.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.js"></script>
+<script language="javascript" type="text/javascript">
+	angular.module('app', []);
+
+	function MyController($scope, $http, $location) {
+		$scope.items = {};
+		$scope.user = {};
+		$scope.loginType = 'login';
+		$scope.showRegister = function(){
+			$scope.loginType='registration';
+		}
+		
+		$scope.login = function() {
+			$http({
+				method : 'POST',
+				url : '/memberws',
+				params : {
+					'type' : $scope.loginType,
+					'email' : $scope.item.email,
+					'password' : $scope.item.password,
+					'name' : $scope.item.name
+				}
+			}).success(function(data) {
+				console.log(data);
+				$scope.user = data;
+				if (data.error == null) {
+					$scope.read();
+				}
+			}).error(function(data, status, headers, config) {
+				alert(data);
+			});
+		};
+
+		$scope.getName = function(){
+			$http({
+				method : 'POST',
+				url : '/memberws',
+				params : {
+					'type' : 'retrieveName',
+					'email' : $scope.post.email
+				}
+			}).success(function(data) {
+				$scope.post.name = data.name;
+				console.log(data);
+			}).error(function(data, status, headers, config) {
+				alert(data);
+			});
+		};
+		
+		$scope.read = function() {
+			$http({
+				method : 'POST',
+				url : '/messagews',
+				params : {
+					'type' : 'readMessage',
+					'email' : $scope.user.email
+				}
+			}).success(function(data) {
+				$scope.items = data;
+				console.log(data);
+			}).error(function(data, status, headers, config) {
+				alert(data);
+			});
+		};
+
+		$scope.postMessage = function(){
+			$http({
+				method : 'POST',
+				url : '/messagews',
+				params : {
+					'type' : 'writeMessage',
+					'to_email' : $scope.post.email,
+					'to_name' : $scope.post.name,
+					'from_email' : $scope.user.email,
+					'year' : $scope.post.year,
+					'message' : $scope.post.message
+				}
+			}).success(function(data) {
+				console.log(data);
+				$scope.post = {};
+			}).error(function(data, status, headers, config) {
+				console.log(data);
+			});
+		};
+	}
+</script>
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push([ '_setAccount', 'UA-36036681-2' ]);
+	_gaq.push([ '_setDomainName', 'github.com' ]);
+	_gaq.push([ '_trackPageview' ]);
+
+	(function() {
+		var ga = document.createElement('script');
+		ga.type = 'text/javascript';
+		ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl'
+				: 'http://www')
+				+ '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(ga, s);
+	})();
+</script>
+</head>
+
+<body ng-controller="MyController">
+	<div id="wrapper">
+		<div id="header">
+			<div id="logo">
+				<h1>
+					<a href="/">Face Back</a>
+				</h1>
+			</div>
+			<div style="float: right;">
+				<img src="./images/faceback.png"
+					style="margin-top: 20px; height: 70px;" />
+			</div>
+		</div>
+		<div id="page">
+			<div id="content">
+				<div ng-show="user.name==null" style="text-align:left;width:350px;float:left;">
+					<div style="width: 50px;">
+						Email:<input type="text" ng-model="item.email">
+					</div>
+					<div style="width: 50px;">
+						Password:<input type="password" ng-model="item.password">
+					</div>
+					<div style="width: 50px;" ng-show="loginType=='registration'">
+						Name:<input type="text" ng-model="item.name">
+					</div>
+					<div ng-show="user.error!=null"
+						style="width: 150px; text-align: left; color: red; font-size: 8pt;">Login
+						failed</div>
+					<div style="width: 250px; margin-top: 10px;">
+						<input type="submit" value="{{loginType}}" ng-click="login()">
+						<a ng-click="showRegister()" style="margin-left:10px;" >Register</a>
+					</div>
+					
+				</div>
+				<div ng-repeat="entity in items.message">
+					<div style="text-align: left;">
+						<div style="float: left;">
+							<img src="./images/ppl.png" />
+						</div>
+						<div>
+							Letter from {{entity.from_email}}
+
+							<h3>Dear {{entity.to_name}}</h3>
+							<p>{{entity.message}}</p>
+						</div>
+					</div>
+					<div style="width: 100%; margin-top: 100px; text-align: center;">
+
+					</div>
+				</div>
+			</div>
+			<div id="sidebar" align="center" ng-show="user.name!=null">
+				<h3>Write Memory to Friends</h3>
+				<div style="text-align:left;">
+					<p>
+						<span >Your friend's email:</span><br />
+						<input ng-change="getName()" style="width:150px;" type="text"	ng-model="post.email"  />
+					</p>
+					<p>
+					<span >Your friend's Name:</span><br />
+					<input type="text" style="width:150px;"	ng-model="post.name" />
+					</p>
+					<p>
+					<span >Year of the happening:</span><br />
+						<input style="width:150px;"
+							type="text" ng-model="post.year" />
+					</p>
+					<p>
+						<span>What's going on:</span> <br />
+						<textarea ng-model="post.message" style="min-width:150px;max-width:250px;"></textarea>
+					</p>
+					<p>
+						<input type="submit" style="width: 100px;" ng-click="postMessage()" value="submit" />
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<div id="footer">
+			<p>Copyright (c) 2013 FaceBack All rights reserved.</p>
+			<ul>
+				<li>Other Projects:</li>
+				<li><a
+					href="http://alvinkwang.github.com/plantatree/PlantATree.html">Plant
+						A Tree</a></li>
+				<li><a href="http://dl.dropbox.com/u/11625785/public/web/">Analytics
+						Test</a></li>
+				<li><a href="http://bencees.github.com/cloud/splash.html">Feeling
+						Ugly</a></li>
+				<li><a href="http://rosannechoo2011.github.com/fivepages/">Five
+						Pages</a></li>
+				<li><a
+					href="http://keemin.github.com/bootstrap-1/indexas3.html">storyon</a></li>
+				<li><a href="http://kwgoh.github.com/code-express/index.html">CodeExpress</a></li>
+				<li><a href="http://kenwjj.github.com/Metro-UI-CSS/public">BoxandButton</a></li>
+			</ul>
+
+		</div>
+	</div>
+
+</body>
+
+</html>
