@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head lang="en">
+<meta charset="utf-8">
+<title>Face Back</title>
+
+<link rel="stylesheet" href="style/default.css">
+<link rel="stylesheet" href="style/red.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.js"></script>
+	<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-39497749-1']);
+  _gaq.push(['_setDomainName', 'afaceback.appspot.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<script language="javascript" type="text/javascript">
+	angular.module('app', []);
+
+	function MyController($scope, $http, $location) {
+		$scope.items = {};
+		$scope.user = {};
+
+		$scope.login = function() {
+			$http({
+				method : 'POST',
+				url : '/memberws',
+				params : {
+					'type' : 'login',
+					'email' : $scope.item.email,
+					'password' : $scope.item.password
+				}
+			}).success(function(data) {
+				console.log(data);
+				$scope.user = data;
+				if (data.error == null) {
+					$scope.read();
+				}
+			}).error(function(data, status, headers, config) {
+				alert(data);
+			});
+		};
+
+		$scope.read = function() {
+			$http({
+				method : 'POST',
+				url : '/messagews',
+				params : {
+					'type' : 'readMessage',
+					'email' : $scope.user.email
+				}
+			}).success(function(data) {
+				$scope.items = data;
+				console.log(data);
+			}).error(function(data, status, headers, config) {
+				alert(data);
+			});
+		};
+
+		$scope.add = function() {
+			$scope.messages.push($scope.newMessage);
+		};
+	}
+</script>
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push([ '_setAccount', 'UA-36036681-2' ]);
+	_gaq.push([ '_setDomainName', 'github.com' ]);
+	_gaq.push([ '_trackPageview' ]);
+
+	(function() {
+		var ga = document.createElement('script');
+		ga.type = 'text/javascript';
+		ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl'
+				: 'http://www')
+				+ '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(ga, s);
+	})();
+</script>
+</head>
+
+<body ng-controller="MyController">
+	<div id="wrapper">
+		<div id="header">
+			<div id="logo">
+				<h1>
+					<a href="/">Face Back</a>
+				</h1>
+			</div>
+			<div style="float: right;">
+				<img src="./images/faceback.png"
+					style="margin-top: 20px; height: 70px;" />
+			</div>
+		</div>
+		<div id="page">
+			<div id="content">
+				<div ng-show="user.name==null">
+					<div style="width: 50px;">
+						Email:<input type="text" ng-model="item.email">
+					</div>
+					<div style="width: 50px;">
+						Password:<input type="password" ng-model="item.password">
+					</div>
+					<div ng-show="user.error!=null"
+						style="width: 150px; text-align: left; color: red; font-size: 8pt;">Login
+						failed</div>
+					<div style="width: 50px; margin-top: 10px;">
+						<input type="submit" value="Login" ng-click="login()">
+					</div>
+				</div>
+				<div ng-repeat="entity in items.message">
+					<div style="text-align: left;">
+						<div style="float: left;">
+							<img src="./images/ppl.png" />
+						</div>
+						<div>
+							Letter from {{entity.from_email}}
+
+							<h3>Dear {{entity.to_name}}</h3>
+							<p>{{entity.message}}</p>
+						</div>
+					</div>
+					<div style="width: 100%; margin-top: 100px; text-align: center;">
+
+					</div>
+				</div>
+			</div>
+			<div id="sidebar" align="center">
+				<h3>Write Memory to Friends</h3>
+				<form action="sendMsg" method="POST">
+					<p>
+						<label for="email">Your friend's email:</label> <input type="text"
+							name="email" />
+					</p>
+					<p>
+						<label for="name">Your friend's Name:</label> <input type="text"
+							name="name" />
+					</p>
+					<p>
+						<label for="year">Year of the happening:</label> <input
+							type="text" name="year" />
+					</p>
+					<p>
+						<label for="happening">What's going on:</label>
+						<textarea name="happening"></textarea>
+					</p>
+					<p>
+						<input type="submit" style="width: 100px;" name="submit"
+							value="submit" />
+					</p>
+				</form>
+			</div>
+		</div>
+
+		<div id="footer">
+			<p>Copyright (c) 2013 FaceBack All rights reserved.</p>
+			<ul>
+				<li>Other Projects:</li>
+				<li><a
+					href="http://alvinkwang.github.com/plantatree/PlantATree.html">Plant
+						A Tree</a></li>
+				<li><a href="http://dl.dropbox.com/u/11625785/public/web/">Analytics
+						Test</a></li>
+				<li><a href="http://bencees.github.com/cloud/splash.html">Feeling
+						Ugly</a></li>
+				<li><a href="http://rosannechoo2011.github.com/fivepages/">Five
+						Pages</a></li>
+				<li><a
+					href="http://keemin.github.com/bootstrap-1/indexas3.html">storyon</a></li>
+				<li><a href="http://kwgoh.github.com/code-express/index.html">CodeExpress</a></li>
+				<li><a href="http://kenwjj.github.com/Metro-UI-CSS/public">BoxandButton</a></li>
+			</ul>
+
+		</div>
+	</div>
+
+</body>
+
+</html>
